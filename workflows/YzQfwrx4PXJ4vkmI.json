@@ -1,0 +1,104 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-01-06T14:17:11.131Z",
+  "id": "YzQfwrx4PXJ4vkmI",
+  "meta": null,
+  "name": "Fb-T&C-API",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "privacy-policy-make",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9626fea0-29ae-4a3a-870d-f2bf6d704f31",
+      "name": "Webhook",
+      "webhookId": "bd2adca2-5e3b-466f-a2c2-5871eaa19c91"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Success",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "364d1be1-74bd-43c7-bdea-94f0773b48ba",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "path": "terms-of-service-make",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        180
+      ],
+      "id": "6909e26a-9820-464e-be79-2c25638e0fcb",
+      "name": "Webhook1",
+      "webhookId": "bd2adca2-5e3b-466f-a2c2-5871eaa19c91"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Success",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        180
+      ],
+      "id": "bfe39453-6f10-48c4-b877-07b378b4cbc3",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-01-06T14:22:51.000Z",
+  "versionId": "6ddf7859-c77d-4fe0-befb-f476f711135f"
+}
