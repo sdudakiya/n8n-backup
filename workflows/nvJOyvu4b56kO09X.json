@@ -148,18 +148,7 @@
         [],
         [
           {
-            "node": "Execute Workflow",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Execute Workflow": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items",
+            "node": "Execute Workflow1",
             "type": "main",
             "index": 0
           }
@@ -239,18 +228,29 @@
         ]
       ]
     },
+    "Execute Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Execute Workflow Trigger": {
       "main": [
         [
           {
-            "node": "Merge Items",
-            "type": "main",
-            "index": 1
-          },
-          {
             "node": "tag?",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge Items",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -593,8 +593,8 @@
     {
       "parameters": {
         "content": "## Main workflow loop",
-        "height": 434.88564057365943,
-        "width": 886.4410237965205,
+        "height": 435,
+        "width": 986,
         "color": 7
       },
       "id": "3d996985-0064-4749-85a1-2191c73746c9",
@@ -693,30 +693,6 @@
       "typeVersion": 1
     },
     {
-      "parameters": {},
-      "id": "5b1991f7-0351-44de-908d-9aa8b8262d60",
-      "name": "Execute Workflow Trigger",
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "position": [
-        480,
-        1320
-      ],
-      "typeVersion": 1.1,
-      "credentials": {}
-    },
-    {
-      "parameters": {},
-      "id": "8e5b3f71-0c5e-4e78-a3f7-0b574c9ddf06",
-      "name": "Execute Workflow",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "position": [
-        1500,
-        580
-      ],
-      "typeVersion": 1.2,
-      "credentials": {}
-    },
-    {
       "parameters": {
         "assignments": {
           "assignments": [
@@ -804,6 +780,37 @@
         1140
       ],
       "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "nvJOyvu4b56kO09X",
+          "mode": "list",
+          "cachedResultName": "Backup your workflows to GitHub -- in (subfolders)"
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        620
+      ],
+      "id": "7aca1a6d-4451-4f2c-8ff5-b98374853386",
+      "name": "Execute Workflow1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        520,
+        1280
+      ],
+      "id": "359eb964-368c-4687-ad8b-4b78346cd922",
+      "name": "Execute Workflow Trigger"
     }
   ],
   "pinData": {},
@@ -813,6 +820,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-10T12:31:00.000Z",
-  "versionId": "e737ed19-c85d-4661-985b-118d1889a1dc"
+  "updatedAt": "2025-03-10T12:48:07.000Z",
+  "versionId": "9761c694-bc44-4398-a463-23bfcc699c63"
 }
