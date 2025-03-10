@@ -1,0 +1,192 @@
+{
+  "active": false,
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Export Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git add": {
+      "main": [
+        [
+          {
+            "node": "git commit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git commit": {
+      "main": [
+        [
+          {
+            "node": "git push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Export Workflows": {
+      "main": [
+        [
+          {
+            "node": "Export Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Export Credentials": {
+      "main": [
+        [
+          {
+            "node": "git add",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Export Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-10T12:33:39.503Z",
+  "id": "zFtcLgxGCWsCoIaU",
+  "meta": {
+    "templateId": "1053"
+  },
+  "name": "Git backup of workflows and credentials",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        380,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "5c335dfc-870d-4d4e-99db-92a9f12d29b0"
+    },
+    {
+      "parameters": {
+        "command": "npx n8n export:workflow --backup --output repo/workflows/"
+      },
+      "name": "Export Workflows",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        580,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "7f465003-2c3a-4d6e-9856-b20200214913"
+    },
+    {
+      "parameters": {
+        "command": "npx n8n export:credentials --backup --output repo/credentials/"
+      },
+      "name": "Export Credentials",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        740,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "e2259fcf-ebf4-4f25-a621-fb14b8d6dc52"
+    },
+    {
+      "parameters": {
+        "command": "git -C repo add ."
+      },
+      "name": "git add",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        880,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "4c2007aa-e338-4cee-a3b1-7dddfc03fb74"
+    },
+    {
+      "parameters": {
+        "command": "=git -C repo commit -m \"Auto backup ({{ new Date().toISOString() }})\""
+      },
+      "name": "git commit",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        1040,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "36bff7ff-3379-479d-91a3-e312ff23eadb"
+    },
+    {
+      "parameters": {
+        "command": "git -C repo push"
+      },
+      "name": "git push",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        1180,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "11cfb09d-63d8-4819-9ba2-b093df9b2f6a"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 0
+            },
+            {
+              "hour": 12
+            },
+            {
+              "hour": 6
+            },
+            {
+              "hour": 18
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        380,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "9f2a9b58-e550-4ce4-8c5c-3e72aadff98a"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-10T12:33:39.503Z",
+  "versionId": "3db53ba8-71e2-4f2c-a75d-1f2e7c7ae219"
+}
