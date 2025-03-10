@@ -1,0 +1,781 @@
+{
+  "active": true,
+  "connections": {
+    "Get Blog": {
+      "main": [
+        [
+          {
+            "node": "Extract Article URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "Combine Articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Article": {
+      "main": [
+        [
+          {
+            "node": "Extract Article Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out URLs": {
+      "main": [
+        [
+          {
+            "node": "Latest Articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Latest Articles": {
+      "main": [
+        [
+          {
+            "node": "Get Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Articles": {
+      "main": [
+        [
+          {
+            "node": "Capture Existing Article Structure",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract Voice Characteristics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Article URLs": {
+      "main": [
+        [
+          {
+            "node": "Split Out URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Article Content": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Article Instruction": {
+      "main": [
+        [
+          {
+            "node": "Content Generation Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Generation Agent": {
+      "main": [
+        [
+          {
+            "node": "Save as Draft",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Article Style & Brand Voice": {
+      "main": [
+        [
+          {
+            "node": "New Article Instruction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Voice Characteristics": {
+      "main": [
+        [
+          {
+            "node": "Article Style & Brand Voice",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Blog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture Existing Article Structure": {
+      "main": [
+        [
+          {
+            "node": "Article Style & Brand Voice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Capture Existing Article Structure",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Voice Characteristics",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Content Generation Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Blog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save as Draft": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-01-03T06:08:10.939Z",
+  "id": "dvGhEOMWdxL1ybxE",
+  "meta": {
+    "templateId": "2648"
+  },
+  "name": "Automate Blog Creation in Brand Voice with AI - Kalindi",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d3159589-dbb7-4cca-91f5-09e8b2e4cba8",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        840,
+        860
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "text": "=### Analyse the given content\n\n{{ $json.data.map(item => item.replace(/\\n/g, '')).join('\\n---\\n') }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"array\",\n    \"items\": {\n      \"type\": \"object\",\n    \t\"properties\": {\n          \"characteristic\": { \"type\": \"string\" },\n          \"description\": { \"type\": \"string\" },\n          \"examples\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n        }\n\t}\n}",
+        "options": {
+          "systemPromptTemplate": "You help identify and define a company or individual's \"brand voice\". Using the given content belonging to the company or individual, extract all voice characteristics from it along with description and examples demonstrating it."
+        }
+      },
+      "id": "d8d4b26f-270f-4b39-a4cd-a6e4361da591",
+      "name": "Extract Voice Characteristics",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "position": [
+        2760,
+        900
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "http://www.foodconsultantindia.com/blog/",
+        "options": {}
+      },
+      "id": "8cca272c-b912-40f1-ba08-aa7c5ff7599c",
+      "name": "Get Blog",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1080,
+        860
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data }}",
+        "options": {}
+      },
+      "id": "aa1e2a02-2e2b-4e8d-aef8-f5f7a54d9562",
+      "name": "Get Article",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1720,
+        860
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "data",
+              "cssSelector": ".header",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "78ae3dfc-5afd-452f-a2b6-bdb9dbd728bd",
+      "name": "Extract Article URLs",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        1240,
+        860
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "id": "3b2b6fea-ed2f-43ba-b6d1-e0666b88c65b",
+      "name": "Split Out URLs",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        1400,
+        860
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "maxItems": 5
+      },
+      "id": "68bb20b1-2177-4c0f-9ada-d1de69bdc2a0",
+      "name": "Latest Articles",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        1560,
+        860
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "data",
+              "cssSelector": ".blog-post",
+              "returnValue": "html"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f20d7393-24c9-4a51-872e-0dce391f661c",
+      "name": "Extract Article Content",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        1880,
+        860
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "data"
+            }
+          ]
+        },
+        "options": {
+          "mergeLists": true
+        }
+      },
+      "id": "299a04be-fe9b-47d9-b2c6-e2e4628f77e0",
+      "name": "Combine Articles",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        2380,
+        900
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "8480ece7-0dc1-4682-ba9e-ded2c138d8b8",
+      "name": "Article Style & Brand Voice",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        3160,
+        680
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.output.title }}",
+        "additionalFields": {
+          "content": "={{ $json.output.body }}",
+          "slug": "={{ $json.output.title.toSnakeCase() }}",
+          "status": "publish",
+          "format": "standard"
+        }
+      },
+      "id": "024efee2-5a2f-455c-a150-4b9bdce650b2",
+      "name": "Save as Draft",
+      "type": "n8n-nodes-base.wordpress",
+      "position": [
+        4280,
+        400
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "naP5Ts1a5HLV6iuN",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 1. Import Existing Content\n[Read more about the HTML node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.html/)\n\nFirst, we'll need to gather existing content for the brand voice we want to replicate. This content can be blogs, social media posts or internal documents - the idea is to use this content to \"train\" our AI to produce content from the provided examples. One call out is that the quality and consistency of the content is important to get the desired results.\n\nIn this demonstration, we'll grab the latest blog posts off a corporate blog to use as an example. Since, the blog articles are likely consistent because of the source and narrower focus of the medium, it'll serve well to showcase this workflow.",
+        "height": 264,
+        "width": 606,
+        "color": 7
+      },
+      "id": "71f4ab1e-ef61-48f3-92e8-70691f7d0750",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1080,
+        540
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 2. Convert HTML to Markdown\n[Learn more about the Markdown node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.markdown)\n\nMarkdown is a great way to optimise the article data we're sending to the LLM because it reduces the amount of tokens required but keeps all relevant writing structure information.\n\nAlso useful to get Markdown output as a response because typically it's the format authors will write in.",
+        "height": 230,
+        "width": 434,
+        "color": 7
+      },
+      "id": "3d3a55a5-4b4a-4ea2-a39c-82b366fb81e6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2040,
+        600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3. Using AI to Analyse Article Structure and Writing Styles\n[Read more about the Basic LLM Chain node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm)\n\nOur approach is to first perform a high-level analysis of all available articles in order to replicate their content layout and writing styles. This will act as a guideline to help the AI to structure our future articles.",
+        "height": 233,
+        "width": 446,
+        "color": 7
+      },
+      "id": "08c0b683-ec06-47ce-871c-66265195ca29",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2580,
+        440
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data.join('\\n---\\n') }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Given the following one or more articles (which are separated by ---), describe how best one could replicate the common structure, layout, language and writing styles of all as aggregate."
+            }
+          ]
+        }
+      },
+      "id": "515fe69f-061e-4dfc-94ed-4cf2fbe10b7b",
+      "name": "Capture Existing Article Structure",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        2620,
+        740
+      ],
+      "typeVersion": 1.4
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.data }}",
+        "options": {}
+      },
+      "id": "ba4e68fb-eccc-4efa-84be-c42a695dccdb",
+      "name": "Markdown",
+      "type": "n8n-nodes-base.markdown",
+      "position": [
+        2200,
+        900
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 4. Using AI to Extract Voice Characteristics and Traits\n[Read more about the Information Extractor node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor/)\n\nSecond, we'll use AI to analysis the brand voice characteristics of the previous articles. This picks out the tone, style and choice of language used and identifies them into categories. These categories will be used as guidelines for the AI to keep the future article consistent in tone and voice. ",
+        "height": 253,
+        "width": 446,
+        "color": 7
+      },
+      "id": "d459ff5b-0375-4458-a49f-59700bb57e12",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2940,
+        1100
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 5. Automate On-Brand Articles Using AI\n[Read more about the Information Extractor node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor)\n\nFinally with this approach, we can feed both content and voice guidelines into our final LLM - our content generation agent - to produce any number of on-brand articles, social media posts etc.\n\nWhen it comes to assessing the output, note the AI does a pretty good job at simulating format and reusing common phrases and wording for the target article. However, this could become repetitive very quickly! Whilst AI can help speed up the process, a human touch may still be required to add a some variety.",
+        "height": 633,
+        "width": 626,
+        "color": 7
+      },
+      "id": "71fe32a9-1b8a-446c-a4ff-fb98c6a68e1b",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3320,
+        360
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.instruction }} {{ $json.output }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "title",
+              "description": "title of article",
+              "required": true
+            },
+            {
+              "name": "summary",
+              "description": "summary of article",
+              "required": true
+            },
+            {
+              "name": "body",
+              "description": "body of article",
+              "required": true
+            },
+            {
+              "name": "characteristics",
+              "description": "comma delimited string of characteristics chosen",
+              "required": true
+            },
+            {
+              "name": "Prompt to flux",
+              "description": "title of article",
+              "required": true
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "=You are a blog content writer who writes using the following article guidelines. Write a content piece as requested by the user. Output the body as Markdown. Do not include the date of the article because the publishing date is not determined yet. Don't use Markdown for final post content, use HTML\n\n## Brand Article Style\n{{ $('Article Style & Brand Voice').item.json.text }}\n\n##n Brand Voice Characteristics\n\nHere are the brand voice characteristic and examples you must adopt in your piece. Pick only the characteristic which make sense for the user's request. Try to keep it as similar as possible but don't copy word for word. Additionally convert this with proper HTML tags for emphasising content. Add images from opensource URLs relevant to the content from shutterstock.com additionally make sure image is not responding with 404 error. Make sure the image is correctly formatted for wordpress blog.\n\n|characteristic|description|examples|\n|-|-|-|\n{{\n$('Article Style & Brand Voice').item.json.output.map(item => (\n`|${item.characteristic}|${item.description}|${item.examples.map(ex => `\"${ex}\"`).join(', ')}|`\n)).join('\\n')\n}}"
+        }
+      },
+      "id": "4e6fbe4e-869e-4bef-99ba-7b18740caecf",
+      "name": "Content Generation Agent",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "position": [
+        3600,
+        680
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 6. Save Draft to Wordpress\n[Learn more about the Wordpress node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.wordpress/)\n\nTo close out the template, we'll simple save our generated article as a draft which could allow human team members to review and validate the article before publishing.",
+        "height": 173,
+        "width": 406,
+        "color": 7
+      },
+      "id": "022de44c-c06c-41ac-bd50-38173dae9b37",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4120,
+        200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Q. Do I need to analyse Brand Voice for every article?\nA. No! I would recommend storing the results of the AI's analysis and re-use for a list of planned articles rather than generate anew every time.",
+        "height": 120,
+        "width": 440,
+        "color": 5
+      },
+      "id": "fe54c40e-6ddd-45d6-a938-f467e4af3f57",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3500,
+        1080
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Q. Can I use other media than blog articles?\nA. Yes! This approach can use other source materials such as PDFs, as long as they can be produces in a text format to give to the LLM.",
+        "height": 120,
+        "width": 380,
+        "color": 5
+      },
+      "id": "1832131e-21e8-44fc-9370-907f7b5a6eda",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1600,
+        1040
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Try It Out!\n### This n8n template demonstrates how to use AI to generate new on-brand written content by analysing previously published content.\n\nWith such an approach, it's possible to generate a steady stream of blog article drafts quickly with high consistency with your brand and existing content.\n\n### How it works\n* In this demonstration, the n8n.io blog is used as the source of existing published content and 5 of the latest articles are imported via the HTTP node.\n* The HTML node is extract the article  bodies which are then converted to markdown for our LLMs.\n* We use LLM nodes to (1) understand the article structure and writing style and (2) identify the brand voice characteristics used in the posts.\n* These are then used as guidelines in our final LLM node when generating new articles.\n* Finally, a draft is saved to Wordpress for human editors to review or use as starting point for their own articles.\n\n### How to use\n* Update Step 1 to fetch data from your desired blog or change to fetch existing content in a different way.\n* Update Step 5 to provide your new article instruction. For optimal output, theme topics relevant to your brand.\n\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!",
+        "height": 800,
+        "width": 400
+      },
+      "id": "8e8706a3-122d-436b-9206-de7a6b2f3c39",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        380,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "28ca627e-85ac-4eb2-acbe-3bca7a664a1b",
+              "name": "instruction",
+              "value": "=Write a comprehensive guide. Explain the benefits of using it. Close out with a recommendation. This article is being published in Wordpress, format the content to be wordpress friendly. Dont use Markdown in final output",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "1510782d-0f88-40ca-99a8-44f984022c8e",
+      "name": "New Article Instruction",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3420,
+        680
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-pro-002",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        1080
+      ],
+      "id": "e9f6cb67-140f-4d00-9ffc-f6a7b6c4ddfa",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eMNmOQzuszbgDOlR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-pro-002",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2720,
+        1220
+      ],
+      "id": "c388fc1c-d161-4cf8-bf5f-5e7481254e73",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eMNmOQzuszbgDOlR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-pro-002",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        3560,
+        920
+      ],
+      "id": "cb7e76c0-282b-4bc3-9a59-6708470b8ddf",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eMNmOQzuszbgDOlR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        1120
+      ],
+      "id": "2085d4c0-a7a7-4e5e-acb3-7f25e8d0a5b7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "vAoeUKfjXIj1KVaK",
+          "mode": "list",
+          "cachedResultName": "Flux AI Image Generator"
+        },
+        "options": {
+          "waitForSubWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        4280,
+        680
+      ],
+      "id": "210724c5-5320-4d4c-af73-638c557ec230",
+      "name": "Execute Workflow"
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        18
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-15T14:58:28.000Z",
+  "versionId": "201bbd00-110c-4fd8-9fd1-17e596cccd7c"
+}
